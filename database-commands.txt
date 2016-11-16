@@ -1,0 +1,16 @@
+CREATE TABLE goals (
+        key INTEGER PRIMARY KEY,
+        goal_name VARCHAR(255),
+        goal_num INTEGER,
+        goal_progress INTEGER,
+        start_date DATETIME,
+        end_date DATETIME,
+        report_period VARCHAR(255),
+        goal_per_report_period INTEGER
+    );
+
+SELECT * FROM goals;
+
+UPDATE goals SET goal_name = 'updateName' WHERE key = 1;
+
+UPDATE goals SET goal_name = '?', goal_num = '?',goal_progress = '?', start_date = '?', end_date = '?', report period = '?',goal_per_report_period = '?', WHERE key = ? , goal[1],goal[2],goal[3],goal[4],goal[5],goal[6],goal[0]

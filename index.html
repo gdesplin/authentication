@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="">
+        
+    <title>Goal Manager</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="font-awesome.min.css">
+    </head> 
+    <body>
+    <div class="content-box">
+        
+        <div id="form-goals">
+            <h1>Goal Manager</h1>
+            <h4>Create a new goal in the form.</h4>
+            <div class="goal-input">
+                <p>Goal Name <input id="goal_name" type="text" name="goal_name" placeholder="Work Out" required></p>
+                
+                <p>Goal Number <input id="goal_num" type="num" name="goal_num" placeholder="5" required></p>
+                
+                <p>Goal Progress <input id="goal_progress" type="num" name="goal_progress" placeholder="0" required></p>
+                
+                <p>Start Date <input id="start_date" type="date" name="start_date" size="40" placeholder="11-05-2016" required></p>
+                
+                
+                <p>End Date <input id="end_date" type="date" name="end_date" size="40" placeholder="11-05-2016" required></p>
+                
+
+                <p>Goal Report Period
+                <select id="report_period" name="report_period">
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                </select></p> 
+                <br>
+                <p>Goal Per Report Period <input id="goal_per_report_period" type="num" name="goal_per_report_period" placeholder="5" required></p>
+                <br>
+                <input id="submit" name="submit" type="submit" value="Create">
+            </div>
+            </div>
+            <div id="form-goals-modal">
+                <div id="modal-content">
+                    <h1>Goal Update</h1>
+
+                    <h4>Update your goal with this form.</h4>
+                         <i id="close" class="fa fa-times" aria-hidden="true"></i>
+                    <div class="goal-input" id="goal-update">
+
+                        <p>Goal Name <input id="goal_name_u" type="text" name="goal_name" placeholder="Work Out" required></p>
+
+                        <p>Goal Number <input id="goal_num_u" type="num" name="goal_num" placeholder="5" required></p>
+
+                        <p>Goal Progress <input id="goal_progress_u" type="num" name="goal_progress" placeholder="0" required></p>
+
+                        <p>Start Date <input id="start_date_u" type="date" name="start_date" size="40" placeholder="11-05-2016" required></p>
+
+
+                        <p>End Date <input id="end_date_u" type="date" name="end_date" size="40" placeholder="11-05-2016" required></p>
+
+
+                        <p>Goal Report Period
+                            <select id="report_period_u" name="report_period">
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                            </select></p> 
+                        <br>
+                        <p>Goal Per Report Period <input id="goal_per_report_period_u" type="num" name="goal_per_report_period" placeholder="5" required></p>
+                        <br>
+                        <input id="submit_u" name="submit" type="submit" value="Update">
+                    </div>
+                </div>
+        </div>
+            
+        
+        <div id="goals">
+        
+        </div>
+    
+	<script src="app.js"></script>    
+        </body>
