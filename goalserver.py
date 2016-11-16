@@ -60,7 +60,8 @@ class MyServer(BaseHTTPRequestHandler):
 
         def check_key(self, key):
             sql = goalsdb()
-            sql.check_key(key)
+            return sql.check_key(key)
+            
 
         def send_404(self):
             self.send_response(404)
@@ -73,25 +74,22 @@ class MyServer(BaseHTTPRequestHandler):
             query = parse_qs(urlparse(self.path).query)
             splitq = self.path.split("/")
             if len(splitq) == 3:
-                goal = splitq[2]
-                self.getGoal(goal)
+                key = splitq[2]
+                if self.check_key(key):
+                    self.getGoal(key)
+                else:
+                    self.send_404()
             elif self.path.startswith("/goals"):
                 self.getGoals()
             else:
-                self.send_response(404)
-                self.send_header('Access-Control-Allow-Origin','*')
-                self.end_headers()
-                self.wfile.write(bytes("Page not found. 404", "utf-8"))
-                return
+                self.send_404()
 
         def do_POST(self):
             if self.path.startswith("/goals"):
                 self.createGoal()   
             else:
-                self.send_response(404)
-                self.end_headers()
-                self.wfile.write(bytes("404", "utf-8"))
-                return
+                self.send_404()
+
         def do_OPTIONS(self):
             self.send_response(200, "ok")
             self.send_header('Access-Control-Allow-Credentials', 'true')
@@ -104,32 +102,27 @@ class MyServer(BaseHTTPRequestHandler):
             splitq = self.path.split("/")
             if len(splitq) == 3:
                 key = splitq[2]
-                print(self.check_key(key))
                 if self.check_key(key):
                     self.updateGoal(key)
                 else:
                     self.send_404()
             else:
-                self.send_response(404)
-                self.send_header('Access-Control-Allow-Origin','*')
-                self.end_headers()
-                self.wfile.write(bytes("Page not found. 404", "utf-8"))
-                return
+                self.send_404()
 
         def do_DELETE(self):
             splitq = self.path.split("/")
-            if len(splitq) == 3:
-                goal = splitq[2]
-                self.deleteGoal(goal)
-            elif self.path.startswith("/goals"):
-                self.deleteGoals()
+            if splitq[1] == "goals":
+                if len(splitq) == 3:
+                    key = splitq[2]
+                    if self.check_key(key):
+                        self.deleteGoal(key)
+                    else:
+                        self.send_404()
+            elif not splitq[2]: 
+                if splitq[1] == "goals":
+                    self.deleteGoals()
             else:
-                self.send_response(404)
-                self.send_header('Access-Control-Allow-Origin','*')
-                self.end_headers()
-                self.wfile.write(bytes("Page not found. 404", "utf-8"))
-                return
-
+               self.send_404()
 
             
 def run():
