@@ -59,4 +59,14 @@ class goalsdb:
             self.cursor.execute("DELETE FROM goals WHERE key = ?", (key,))
             self.conn.commit()
             self.conn.close()
+        
+        def check_key(self, key):
+            self.cursor.execute("select exists (select key from goals where key = ?)", (key,))
+            checker = self.cursor.fetchone()
+            if checker[0] == 1:
+                print("true")
+                print(checker[0])
+                return True
+            
+            return False
 

@@ -58,6 +58,16 @@ class MyServer(BaseHTTPRequestHandler):
             print(key)
             sql.deleteGoal(key)
 
+        def check_key(self, key):
+            sql = goalsdb()
+            sql.check_key(key)
+
+        def send_404(self):
+            self.send_response(404)
+            self.send_header('Access-Control-Allow-Origin','*')
+            self.end_headers()
+            self.wfile.write(bytes("Page not found. 404", "utf-8"))
+
 
         def do_GET(self):
             query = parse_qs(urlparse(self.path).query)
@@ -94,7 +104,11 @@ class MyServer(BaseHTTPRequestHandler):
             splitq = self.path.split("/")
             if len(splitq) == 3:
                 key = splitq[2]
-                self.updateGoal(key)
+                print(self.check_key(key))
+                if self.check_key(key):
+                    self.updateGoal(key)
+                else:
+                    self.send_404()
             else:
                 self.send_response(404)
                 self.send_header('Access-Control-Allow-Origin','*')
