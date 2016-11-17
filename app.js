@@ -1,3 +1,17 @@
+var createUser
+
+function signUpClick() {
+    signUpModal.style.display = 'block'; 
+}
+close_btn.onclick = function() {
+    signUpModal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == signUpModal) {
+        signUpModal.style.display = "none";
+    }
+}
 var nameSections = function (i) {
     var nme = '';
     if (i == 1) {nme = 'Goal Name: ';}

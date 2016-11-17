@@ -14,3 +14,11 @@ SELECT * FROM goals;
 UPDATE goals SET goal_name = 'updateName' WHERE key = 1;
 
 UPDATE goals SET goal_name = '?', goal_num = '?',goal_progress = '?', start_date = '?', end_date = '?', report period = '?',goal_per_report_period = '?', WHERE key = ? , goal[1],goal[2],goal[3],goal[4],goal[5],goal[6],goal[0]
+
+CREATE TABLE users (
+	id INTEGER PRIMARY KEY,
+	email VARCHAR(255),
+	f_name VARCHAR(255),
+	l_name VARCHAR(255),
+	password VARCHAR(255)
+	);

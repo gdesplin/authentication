@@ -122,7 +122,7 @@ class MyServer(BaseHTTPRequestHandler):
                         self.send_404()
                 elif self.path.startswith("/goals"):
                     self.getGoals()
-            elif sqlitq[1] == "users":
+            elif splitq[1] == "users":
                 if len(splitq) == 3:
                     key = splitq[2]
                     if self.check_key_users(key):

@@ -70,17 +70,19 @@ class usersdb:
                 mydict.get('email'),
                 mydict.get('f_name'),
                 mydict.get('l_name'),
-                hashed
             ]
             mylist = [item for sublist in row for item in sublist]
+            mylist.append(hashed)
+            print(mylist)
             return mylist
 
         def hashPass(self, password):
-            return hashed = bcrypt.encrypt(password)
+            return bcrypt.encrypt(password)
 
         def sqlCreateUser(self, user):
-            hashed = hashPass(user.get('password'))
-            mylist = self.dictToList(user, hashed)
+            print(str(user['password']))
+            hashed = self.hashPass(str(user['password']))
+            mylist = self.dictToList(user,hashed)
             self.cursor.execute("INSERT INTO users VALUES (NULL, ?, ?, ?, ?)", (mylist))
             self.conn.commit()
             self.conn.close()
@@ -94,7 +96,7 @@ class usersdb:
             return json_users
         
         def getUser(self, key):
-            self.cursor.execute("SELECT * FROM users WHERE key = ?", (key))
+            self.cursor.execute("SELECT * FROM users WHERE id = ?", (key))
             user = self.cursor.fetchone()
             json_user = json.dumps(user)
             self.conn.commit()
@@ -103,27 +105,26 @@ class usersdb:
     
         def updateUser(self, user, key):
             userList = self.dictToList(user)
-            self.cursor.execute("UPDATE users SET email = ?, f_name = ?, l_name = ?, password = ?, WHERE key = ?", (userList[0] ,userList[1],userList[2],userList[3],key))
+            self.cursor.execute("UPDATE users SET email = ?, f_name = ?, l_name = ?, password = ?, WHERE id = ?", (userList[0] ,userList[1],userList[2],userList[3],key))
             self.conn.commit()
             self.conn.close()
         
         def deleteUser(self, key):
-            self.cursor.execute("DELETE FROM users WHERE key = ?", (key,))
+            self.cursor.execute("DELETE FROM users WHERE id = ?", (key,))
             self.conn.commit()
             self.conn.close()
         
         def check_key_users(self, key):
-            self.cursor.execute("select exists (select key from users where key = ?)", (key,))
+            self.cursor.execute("select exists (select id from users where id = ?)", (key,))
             checker = self.cursor.fetchone()
             if checker[0] == 1:
                 print("true")
                 print(checker[0])
                 return True
             return False
-                et('password'),
 
         def check_key_users(self, key):
-            self.cursor.execute("select exists (select key from users where key = ?)", (key,))
+            self.cursor.execute("select exists (select id from users where id = ?)", (key,))
             checker = self.cursor.fetchone()
             if checker[0] == 1:
                 return True
