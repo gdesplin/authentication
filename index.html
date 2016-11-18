@@ -8,7 +8,7 @@
     <title>Goal Manager</title>
 
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="font-awesome.min.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
     </head> 
     <body>
     <div class="content-box">
@@ -80,10 +80,11 @@
         
         <div id="signUpModal">
                 <div id="modal-content">
+                     <i id="close_su" class="fa fa-times" aria-hidden="true"></i>
                     <h1>Sign Up</h1>
 
                     <h4>Sign Up with this form.</h4>
-                         <i id="close" class="fa fa-times" aria-hidden="true"></i>
+                        
                     <div class="signUpInput" id='signUpInfo'>
                         <p>Email  <input id="email_su" type="email" name="email" placeholder="gdesplin@gmail.com" required></p>
                         
@@ -91,10 +92,11 @@
 
                         <p>Last Name <input id="l_name_su" type="text" name="l_name" placeholder="Esplin" required></p>
 
-                        <p>Password <input id="password_su" type="num" name="password" placeholder="buddy89" required></p>
+                        <p>Password <input id="password_su" type="password" name="password" placeholder="buddy89" required></p>
 
                         
                         <input id="submit_su" name="submit" type="submit" value="Sign Up">
+                        
                     </div>
                 </div>
         </div>

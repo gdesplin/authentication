@@ -1,9 +1,71 @@
-var createUser
+var writeSuccUC = function () {
+    var  submitButtonUser = document.getElementById('submit_su');
+    submitButtonUser.value = "Success!";
+    submitButtonUser.setAttribute("class", "success");
+}
 
+var writeFailUC = function () {
+    var  submitButtonUser = document.getElementById('submit_su');
+    submitButtonUser.value = "Already Exists";
+    submitButtonUser.setAttribute("class", "fail");
+}
+
+var userPostRequest = function () {
+	var request = new XMLHttpRequest();
+	request.onreadystatechange = function () {
+        if (request.readyState === XMLHttpRequest.DONE) {
+            if (request.status >= 200 && request.status < 400) {
+                writeSuccUC()
+            }
+            else if (request.status = 400 ) {
+                
+            }
+            else {
+                alert("Uh");
+            }
+        }
+	};
+    serialize = function(obj) {
+      var str = [];
+      for(var p in obj)
+        if (obj.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+      return str.join("&");
+    }
+    var email = document.getElementById("email_su");
+    var f_name = document.getElementById("f_name_su");
+    var l_num = document.getElementById("l_name_su");
+    var password = document.getElementById("password_su");
+    
+    var postuser= {};
+    postuser[email.name] = email.value;
+    postuser[f_name.name] = f_name.value;
+    postuser[l_num.name] = l_num.value;
+    postuser[password.name] = password.value;
+
+    var encodedData = serialize(postuser);
+    console.log(postuser);
+    console.log(encodedData);
+    
+    request.open("POST", "http://localhost:8080/users");
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request.send(encodedData);
+    
+};
+
+var  submitButtonUser = document.getElementById('submit_su');
+submitButtonUser.onclick = function () {
+    console.log("Submit Pressed");
+    userPostRequest();
+    console.log("User Created Successfully");
+};
+
+var close_btn_su = document.getElementById('close_su');
 function signUpClick() {
     signUpModal.style.display = 'block'; 
 }
-close_btn.onclick = function() {
+close_btn_su.onclick = function() {
     signUpModal.style.display = "none";
 }
 
@@ -84,7 +146,7 @@ var getRequest = function () {
     request.send();
 };
 
-var postRequest = function () {
+var goalsPostRequest = function () {
 	var request = new XMLHttpRequest();
 	request.onreadystatechange = function () {
         if (request.readyState === XMLHttpRequest.DONE) {
@@ -133,7 +195,7 @@ getRequest();
 var  submitButton = document.getElementById('submit');
 submitButton.onclick = function () {
     console.log("Submit Pressed");
-    postRequest();
+    goalsPostRequest();
     console.log("Goal Created Successfully");
 };
 

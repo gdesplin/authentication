@@ -55,16 +55,25 @@ class MyServer(BaseHTTPRequestHandler):
             sql = goalsdb()
             return sql.check_key_goals(key)
 
+#users
         def createUser(self):
             sql = usersdb()
-            self.send_response(201)
             self.send_header('Access-Control-Allow-Origin','*')
             self.end_headers()
-            length = int(self.headers['Content-Length'])
+            length = int(self.headers['content-length'])
             data = self.rfile.read(length).decode("utf-8")
             parsed_data = parse_qs(data, False, True)
-            sql.sqlCreateUser(parsed_data)
-#users
+            self.send_header('Access-Control-Allow-Origin','*')
+            if self.check_email_user(str(parsed_data['email'])):
+                self.send_response(201)
+                self.send_header('Access-Control-Allow-Origin','*')
+                self.end_headers()
+                sql.sqlCreateUser(parsed_data)
+            else:
+                self.send_response(400) #whats the proper response here?
+                self.send_header('Access-Control-Allow-Origin','*')
+                self.end_headers()
+
         def getUsers(self):
             sql = usersdb()
             self.send_response(200)
@@ -102,6 +111,10 @@ class MyServer(BaseHTTPRequestHandler):
         def check_key_users(self, key):
             sql = usersdb()
             return sql.check_key_users(key)
+
+        def check_email_user(self, email):
+            sql = usersdb()
+            return sql.check_email_user(email)
 
         def send_404(self):
             self.send_response(404)
@@ -141,6 +154,7 @@ class MyServer(BaseHTTPRequestHandler):
                 if splitq[1] == "goals":
                     self.createGoal()   
                 elif splitq[1] == "users":
+                    print("creating User")
                     self.createUser()
                 else:
                     self.send_404()

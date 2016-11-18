@@ -83,7 +83,9 @@ class usersdb:
             print(str(user['password']))
             hashed = self.hashPass(str(user['password']))
             mylist = self.dictToList(user,hashed)
+            print(mylist)
             self.cursor.execute("INSERT INTO users VALUES (NULL, ?, ?, ?, ?)", (mylist))
+            print("user create")
             self.conn.commit()
             self.conn.close()
 
@@ -114,8 +116,8 @@ class usersdb:
             self.conn.commit()
             self.conn.close()
         
-        def check_key_users(self, key):
-            self.cursor.execute("select exists (select id from users where id = ?)", (key,))
+        def check_email_user(self, email):
+            self.cursor.execute("select exists (select email from users where id = ?)", (email,))
             checker = self.cursor.fetchone()
             if checker[0] == 1:
                 print("true")
